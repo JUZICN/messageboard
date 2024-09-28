@@ -1,27 +1,201 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+body {
+  @apply text-gray-800 min-h-screen flex flex-col justify-center items-center;
+  font-family: 'Inter', sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+h1 {
+  @apply text-5xl font-extrabold text-gray-800 mb-10 tracking-tight;
+}
+
+form {
+  @apply bg-white bg-opacity-50 backdrop-blur-md shadow-2xl rounded-xl p-6 flex flex-col space-y-4 max-w-lg w-full;
+}
+
+input,
+textarea {
+  @apply border border-gray-300 p-3 rounded-lg focus:outline-none transition-all;
+}
+
+input:focus,
+textarea:focus {
+  border-color: transparent;
+  box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.7);
+  background-clip: padding-box;
+}
+
+button {
+  @apply bg-indigo-600 text-white py-3 px-5 rounded-lg hover:bg-indigo-700 transition;
+}
+
+ul {
+  @apply space-y-4 mt-8 w-full max-w-lg;
+}
+
+.message-item {
+  @apply bg-white bg-opacity-40 backdrop-blur-lg rounded-lg shadow-md transition-transform transform hover:-translate-y-1 hover:scale-105;
+}
+
+.message-item p {
+  @apply mb-1; /* 各段落之间的间距 */
+}
+
+.message-item .timestamp {
+  @apply text-sm text-gray-500; /* 时间戳样式 */
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
   }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes scale-in {
+  from {
+    transform: scale(0.9);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes scale-out {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0.9);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease forwards;
+}
+
+.animate-fade-out {
+  animation: fade-out 0.3s ease forwards;
+}
+
+.animate-scale-in {
+  animation: scale-in 0.3s ease forwards;
+}
+
+.animate-scale-out {
+  animation: scale-out 0.3s ease forwards;
+}
+
+/* 添加高斯模糊和透明效果 */
+.message-item {
+  margin-bottom: 10px; /* 留言项之间的间距 */
+  padding: 10px; /* 留言项内边距 */
+  border: 1px solid #e0e0e0; /* 留言项边框 */
+  border-radius: 5px; /* 圆角 */
+  background-color: rgba(255, 255, 255, 0.7); /* 半透明背景 */
+  backdrop-filter: blur(5px); /* 高斯模糊 */
+  transition: all 0.3s ease; /* 添加平滑过渡效果 */
+}
+
+/* 在详细信息弹窗打开时，背景模糊 */
+.details-background {
+  backdrop-filter: blur(10px); /* 更强的模糊效果 */
+  position: fixed;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.8); /* 半透明背景 */
+  z-index: 50; /* 确保在其他内容上方 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 详细信息弹窗的样式 */
+.details-popup {
+  background: rgba(255, 255, 255, 0.9); /* 半透明背景 */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  max-width: 500px; /* 设置最大宽度 */
+  width: 90%; /* 响应式宽度 */
+  transition: all 0.3s ease; /* 添加平滑过渡效果 */
+}
+/* 全局边距设置 */
+@media (max-width: 640px) {
+  body {
+    @apply p-4; /* 增加上下左右边距 */
+  }
+}
+footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.8em;
+}
+a {
+  position: relative;
+  text-decoration: none;
+  display: inline-block; 
+  color: black; 
+}
+
+a::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: black;
+  transform: scaleX(0); 
+  transform-origin: right; 
+  transition: transform 0.3s ease; 
+}
+
+a:hover::before {
+  transform: scaleX(1); 
+  transform-origin: left; 
+}
+
+a::selection {
+  color: #000; 
+  background-color: #DCDCDC; 
+}
+
+a span {
+  background: linear-gradient(to right, #000, #000);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline; 
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+html {
+  overflow: -moz-scrollbars-none;
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  overflow: auto;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+::selection {
+  color: #000;
+  background-color: #DCDCDC;
 }
