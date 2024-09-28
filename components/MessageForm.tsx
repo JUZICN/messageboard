@@ -98,14 +98,18 @@ const MessageForm: React.FC<MessageFormProps> = ({ onNewMessage }) => {
       <input
         type="text"
         value={author}
-        onChange={(e) => setAuthor(e.target.value)}
-        placeholder="你的名字(若留空则默认设置为匿名)"
+        onChange={(e) => {
+          if (e.target.value.length <= 10) { // 限制最长字符为10个
+            setAuthor(e.target.value);
+          }
+        }}
+        placeholder="你的名字(最多10字，可留空)"
         className="border-b border-gray-300 p-2 rounded-t-lg focus:outline-none focus:border-indigo-600 transition"
       />
       <textarea
         value={content}
         onChange={handleContentChange}
-        placeholder="你的留言(最多800字)"
+        placeholder="你的留言(最多800字，不可留空)"
         required
         className="border-b border-gray-300 p-2 rounded-b-lg focus:outline-none focus:border-indigo-600 transition"
       />
